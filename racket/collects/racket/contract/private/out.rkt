@@ -1,6 +1,7 @@
 #lang racket/base
 (require (for-syntax racket/base
                      racket/provide-transform)
+         (only-in "base.rkt" add-lifted-property)
          "provide.rkt")
 (provide contract-out
          reprovide/contract
@@ -46,8 +47,8 @@
                      #'(begin))]
              [x stx])))
        #`(begin
-           #,without-provide-clauses
-           (define-syntax contracted-vars-info (quote-syntax #,provide-clauses))))]))
+           #,(add-lifted-property without-provide-clauses)
+           (define-syntax contracted-vars-info (quote-syntax #,(map add-lifted-property provide-clauses)))))]))
   
 (define-syntax provide-contracted-vars 
   (make-provide-transformer

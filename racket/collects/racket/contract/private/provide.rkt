@@ -293,6 +293,7 @@
                  (generate-temporaries (list 'idX 'idY 'idZ 'idB))]
                 [ctrct ctrct])
     (syntax-local-lift-module-end-declaration
+     (add-lifted-property
      #`(begin 
          (define-values (partially-applied-id blame-id)
            (do-partial-app contract-id
@@ -304,7 +305,7 @@
                 (list #`(define extra-neg-party-argument-fn 
                           (wrapped-extra-arg-arrow-extra-neg-party-argument
                            partially-applied-id)))
-                (list))))
+                (list)))))
 
     #`(begin
         (define contract-id
